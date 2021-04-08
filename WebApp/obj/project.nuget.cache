@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4v/n40wIpC/uKdPQeBoMoUxDCECUhzwMz8pFw//h/6rT/yKfEbGiS56EN52UURCpgg6X0Oh+135DyH/Q9tqncA==",
+  "dgSpecHash": "/+YGrgXxcNXS8/JMy7Rx8/Dj51Z78FqPfuC8R8t5G9bOiuJSuZgBylw+ynhagLiY+mpqMMkN956usiEaBK93PA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nolan\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
+  "projectFilePath": "C:\\Users\\nolan\\PhotoArchiveApp\\WebApp\\WebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nolan\\.nuget\\packages\\awssdk.core\\3.3.100\\awssdk.core.3.3.100.nupkg.sha512",
     "C:\\Users\\nolan\\.nuget\\packages\\awssdk.extensions.netcore.setup\\3.3.101\\awssdk.extensions.netcore.setup.3.3.101.nupkg.sha512",
