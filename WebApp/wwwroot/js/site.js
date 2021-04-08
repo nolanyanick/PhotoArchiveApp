@@ -2,7 +2,7 @@
 // variable to indicate how many images to load
 var pageSize = 12;
 
-// variable to determine which set of images to load
+// variable to determine which images to load
 var pageIndex = 0;
 
 // variable used for image id's
@@ -25,22 +25,21 @@ $('#imageModal').on('show.bs.modal', function (event) {
 });
 
 // ready function that listens for scroll event
-// and calls GetData function if the user is at the bottom of the page
+// and calls LoadData function if the user is at the bottom of the page
 $(document).ready(function () {
-    GetData();
+    LoadData();
 
     window.addEventListener('scroll', () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
         if (clientHeight + scrollTop >= scrollHeight - 5) {
-            GetData();
+            LoadData();
         }
     });
 });
 
-// function to get images from HomeController's GetData method
-// using an ajax call
-function GetData() {
+// function w/ AJAX call to get images from HomeController's GetData method
+function LoadData() {
 
     $.ajax({
     type: 'GET',
@@ -50,13 +49,11 @@ function GetData() {
         dataType: 'json',
         // if successful and data is present, update the view with new images
         success: function (data) {
+            
             if (data != null) {
                 for (var i = 0; i < data.length; i++) {
 
-                    // get container
-                    var container = document.getElementById("container");
-
-                    // create <img> tag for image, set its source & class, append to container
+                    // create <img> element for image, set its attributes, append to body
                     var img = document.createElement("img");
                     img.src = data[i];
                     img.className = "mainImages";
@@ -65,46 +62,42 @@ function GetData() {
                     img.dataset.target = "#imageModal";
                     document.body.appendChild(img);
 
+                    // add to list for additional styling/manipulation
                     images.push(img);
 
+                    // increment for next image ID
                     x++;
                 }
             
-                // increment pageIndex for next query
+                // increment pageIndex for next request
                 pageIndex++;
-                //images.forEach(image => image.addEventListener("mouseover", function () { image.style["boxShadow"] = "0 0 20px #999999" }, false));
-                images.forEach(image => image.addEventListener("mouseover", function () { addShadow(image) }, false));
 
-                //images.forEach(image => image.addEventListener("mouseout", function () { image.style["boxShadow"] = "0 0 0 #999999" }, false));
-                images.forEach(image => image.addEventListener("mouseout", function () { removeShadow(image) }, false));
-
-                //images.forEach(image => image.addEventListener("click", function () { console.log("function functioning"); }, false));
-
-
-
-
-
+                // add mouseover/out event for shadows
+                images.forEach(image => image.addEventListener("mouseover", function () { addShadow(image) }, false));  
+                images.forEach(image => image.addEventListener("mouseout", function () { removeShadow(image) }, false));            
             }
         },
-    // show loading text
-    beforeSend: function () {
-        },
-    // hide loading text
-    complete: function () {
-        },
-    // if error occurrs, send alert
-    error: function () {
-        alert("Error")
-    }
+        // function for before send
+        beforeSend: function () {},
+
+        // function for after send
+        complete: function () {},
+
+        // if error occurrs, send alert message
+        error: function (data, status) {
+
+            alert("An error had occurred, please try again.");     
+            console.log("STATUS: " + status);        
+        }
     });
+}
 
-    function addShadow(element) {
-        element.style["boxShadow"] = "0 0 20px #999999";
-    }
+// add box shadow to element
+function addShadow(element) {
+    element.style["boxShadow"] = "0 0 20px #999999";
+}
 
-    function removeShadow(element) {
-        element.style["boxShadow"] = "0 0 0 #999999";
-    }
-
-
+// remove box shadow from element
+function removeShadow(element) {
+    element.style["boxShadow"] = "0 0 0 #999999";
 }
